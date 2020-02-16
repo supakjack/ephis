@@ -13,13 +13,15 @@ class Ephis_alert extends Ephis_Controller
     }
 
     public function show()
-    {
-        $this->output('v_alert');
+    {   
+        $method="monitor";
+        $this->output('v_alert',array('method'=>$method));
     }
 
     public function authen()
     {
-        $this->output('v_authen');
+        $method="authen";
+        $this->output('v_authen',array('method'=>$method));
     }
 
     public function update_state_by_usr_id($id, $sta)

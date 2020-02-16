@@ -79,10 +79,10 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
-        <li class="nav-item active">
+        <li class="nav-item <?php echo isset($method)?$method=='monitor'?'active':'':'' ?>">
           <a class="nav-link" href="<?php echo base_url('Ephis_alert/show') ?>">Monitoring <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item <?php echo isset($method)?$method=='authen'?'active':'':'' ?>">
           <a class="nav-link" href="<?php echo base_url('Ephis_alert/authen') ?>">Authen</a>
         </li>
 

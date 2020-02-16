@@ -12,9 +12,9 @@ class Ephis_Controller extends CI_Controller
 
 	public function output($view, $data = null)
 	{
-		$this->load->view('header.php', null, FALSE);
+		$this->load->view('header', $data, FALSE);
 		$this->load->view($view, $data, FALSE);
-		$this->load->view('footer.php', null, FALSE);
+		$this->load->view('footer', $data, FALSE);
 	}
 }
 
