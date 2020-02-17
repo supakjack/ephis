@@ -32,6 +32,9 @@ class Da_users extends CI_Model
     {
         if (isset($this->usr_id)) {
             $this->db->where('usr_id', $this->usr_id); // users: WHERE usr_id = 'xxx'
+        } else if (isset($this->usr_username) && isset($this->usr_pass)) {
+            $this->db->where('usr_username', $this->usr_username); // users: WHERE usr_username = 'xxx'
+            $this->db->where('usr_pass', $this->usr_pass); // users: WHERE usr_pass = 'xxx'
         }
         $this->db->order_by("usr_sta", "asc");
         $query = $this->db->get('users');

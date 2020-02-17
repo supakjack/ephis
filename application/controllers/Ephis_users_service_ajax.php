@@ -14,13 +14,29 @@ class Ephis_users_service_ajax extends CI_Controller
 
     public function select_users()
     {
-        $post_usr_id = null;
+        $post_usr_id = $this->input->post('usr_id')==''?NULL:$this->input->post('usr_id');
 
         $this->load->model('Da_users', 'dus');
         $this->dus->usr_id = $post_usr_id;
         $json_rs_users = $this->dus->select();
 
         echo json_encode($json_rs_users);
+    }
+
+    public function select_users_by_usr_username_and_usr_password()
+    {
+        $post_usr_username = $this->input->post('usr_username');
+        $post_usr_pass = $this->input->post('usr_pass');
+
+        $this->load->model('Da_users', 'dus');
+        $this->dus->usr_username = $post_usr_username;
+        $this->dus->usr_pass = $post_usr_pass;
+        $json_rs_users = $this->dus->select();
+        if(isset($json_rs_users)){
+            $this->session->id = $json_rs_users[0]->usr_id;
+        }
+        echo json_encode($json_rs_users);
+
     }
 
     public function insert_users()

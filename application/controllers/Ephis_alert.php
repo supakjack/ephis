@@ -13,25 +13,37 @@ class Ephis_alert extends Ephis_Controller
     }
 
     public function show()
-    {   
-        $method="monitor";
-        $this->output('v_alert',array('method'=>$method));
+    {
+        if (!isset($this->session->id)) {
+            $this->index();
+        } else {
+            $method = "monitor";
+            $this->output('v_alert', array('method' => $method));
+        }
     }
 
     public function authen()
     {
-        $method="authen";
-        $this->output('v_authen',array('method'=>$method));
+        if (!isset($this->session->id)) {
+            $this->index();
+        } else {
+            $method = "authen";
+            $this->output('v_authen', array('method' => $method));
+        }
     }
 
-    public function update_state_by_usr_id($id, $sta)
+    public function index($msg = null)
     {
-        $this->load->model('Da_users', 'dus');
-        $this->dus->usr_sta = $sta;
-        $this->dus->usr_id = $id;
-        $this->dus->update_usr_sta();
-
-        redirect(base_url('Ephis_alert/show'), 'refresh');
+        if (isset($msg)) {
+            if ($msg == "logout") {
+                $this->session->unset_userdata('id');
+            }
+        }
+        if (!isset($this->session->id)) {
+            $this->output('v_login');
+        } else {
+            redirect(base_url('Ephis_alert/show'), 'refresh');
+        }
     }
 }
 

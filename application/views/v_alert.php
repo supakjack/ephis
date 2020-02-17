@@ -1,39 +1,35 @@
 <script>
+  // inital value to users
   let users = get_users();
-  console.log(users);
+
+  console.log(users)
 
   // jquery document ready
   $(document).ready(function() {
 
-    create_new_monitor(users);
-    setInterval(ajax_call_monitor_users, 3000); //300000 MS == 5 minutes
+    create_new_monitor(users); // monitoring
+    setInterval(ajax_call_monitor_users, 1000); //1000 MS == 1 sec
 
+    // momitoring logic
     function ajax_call_monitor_users() {
-      var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4) {
-          let new_users = JSON.parse(xhr.responseText);
-          // console.log(new_users)
-          if (new_users.length == users.length) {
-            console.log("not change length")
-            let check_infor = users.some(function(user, index) {
-              return (users[index].id != new_users[index].id) || (users[index].usr_sta != new_users[index].usr_sta)
-            })
-            if (check_infor) {
-              console.log("change status")
-              users = new_users;
-              create_new_monitor(users);
-            }
-          } else {
-            console.log("change length")
-            users = new_users;
-            create_new_monitor(users);
-          }
+      let new_users = get_users();
+      if (new_users.length == users.length) {
+        console.log("not change length")
+        let check_infor = users.some(function(user, index) {
+          return (users[index].id != new_users[index].id) || (users[index].usr_sta != new_users[index].usr_sta)
+        })
+        if (check_infor) {
+          console.log("change status")
+          users = new_users;
+          create_new_monitor(users);
         }
-      };
-      xhr.open('POST', '<?php echo base_url('Ephis_users_service_ajax/select_users') ?>');
-      xhr.send();
+      } else {
+        console.log("change length")
+        users = new_users;
+        create_new_monitor(users);
+      }
     }
+    // momitoring logic
 
 
     // append to container
@@ -59,6 +55,8 @@
   });
   // jquery document ready
 </script>
+
+<!-- html  -->
 <section>
   <div class="container">
     <div class="d-flex justify-content-center mt-5 users-cards flex-wrap">
@@ -68,3 +66,4 @@
     </div>
   </div>
 </section>
+<!-- html  -->
